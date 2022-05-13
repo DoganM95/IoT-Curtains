@@ -24,4 +24,4 @@
 - Voltage potential between pin 1 and pin 2/3 is `3.3v`, which the mosfet should be able to handle
 - pin 1 is connected to each mosfet's drain
 - pin 2/3 are each connected to a mosfet's source pin
--gpio will be high for a short time (e.g. 0.5s) to simulate a human button press and not fry anything
+- gpio will be high for a short time (e.g. 0.5s) to simulate a human button press and not fry anything
