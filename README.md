@@ -4,11 +4,11 @@
   
 - Pinout:  
 
-    Pin 1: GND  
-    Pin 2: open curtains  
-    Pin 3: close curtains  
-    Pin 4: Motor  
     Pin 5: Motor  
+    Pin 4: Motor  
+    Pin 3: close curtains  
+    Pin 2: open curtains  
+    Pin 1: GND  
 
 - shorting pin 1 and pin 2 opens the blinds
 - shorting pin 1 and pin 3 closes the curtains
