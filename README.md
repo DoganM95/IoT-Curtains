@@ -10,14 +10,14 @@
     Pin 2: open curtains  
     Pin 1: GND  
 
-- shorting pin 1 and pin 2 opens the blinds
+- shorting pin 1 and pin 2 opens the curtains
 - shorting pin 1 and pin 3 closes the curtains
 
 ![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
 
 ### Hardware setup
 
-- Shorting pins (1 and 2) && (1 and 3) by esp32 will happen using mosfets
+- Shorting pins (1 and 2) && (1 and 3) by esp32 happens using mmbt2222a transistors, where esp controls the gate
 - Mosfet gate is connected to esp32 gpio (open/close)
 - Gate is pulled down using a 10 kOhm resistor, connected from gate to mosfet source
 - Voltage potential between pin 1 and pin 2/3 is `3.3v`, which the mosfet should be able to handle
