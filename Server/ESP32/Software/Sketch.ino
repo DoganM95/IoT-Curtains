@@ -12,8 +12,8 @@
 const unsigned int pressDuration = 500;  // time the gpio should be HIGH, before it goes back to LOW
 
 // GPIO pins
-const unsigned short int openCurtainsPin = 18;   // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
-const unsigned short int closeCurtainsPin = 17;  // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
+const unsigned short int openCurtainsPin = 25;   // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
+const unsigned short int closeCurtainsPin = 26;  // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
 
 // Connection State
 String IpAddress = "";
@@ -121,7 +121,6 @@ void wifiConnectionHandlerThreadFunction(void* params) {
       if (WiFi.isConnected()) {
         Serial.printf("Connected to Wifi: %s\n", WIFI_SSID);
         wifiReconnectCounter = 0;
-        flashLights(2, 50, 50);
       }
     }
     delay(1000);
