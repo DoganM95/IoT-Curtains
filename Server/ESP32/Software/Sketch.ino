@@ -12,8 +12,8 @@
 const unsigned int pressDuration = 500;  // time the gpio should be HIGH, before it goes back to LOW
 
 // GPIO pins
-const unsigned short int openCurtainsPin = 25;   // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
-const unsigned short int closeCurtainsPin = 26;  // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
+const unsigned short int openCurtainsPin = 26;   // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
+const unsigned short int closeCurtainsPin = 25;  // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
 
 // Connection State
 String IpAddress = "";
@@ -71,14 +71,14 @@ BLYNK_CONNECTED() {  // Restore hardware pins according to current UI config
   Blynk.syncAll();
 }
 
-BLYNK_WRITE(V1) {  // Both lights state
+BLYNK_WRITE(V1) {  // Open curtains
   int pinValue = param.asInt();
   digitalWrite(openCurtainsPin, 1);
   delay(pressDuration);
   digitalWrite(openCurtainsPin, 0);
 }
 
-BLYNK_WRITE(V2) {  // Both lights brightness (slider)
+BLYNK_WRITE(V2) {  // Close curtains
   int pinValue = param.asInt();
   digitalWrite(closeCurtainsPin, 1);
   delay(pressDuration);
