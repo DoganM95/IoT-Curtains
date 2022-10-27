@@ -1,5 +1,7 @@
 ### Cutain controller pcb
 
+![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
+
 - has 24V and GND to power the pcb (step-down converter will be added here to power the esp32)  
   
 - Pinout:  
@@ -13,17 +15,16 @@
 - shorting pin 1 and pin 2 opens the curtains
 - shorting pin 1 and pin 3 closes the curtains
 
-#### Power supplication
-The wall pcb provides power rated at 3.3 Volts but drops as you draw current.
-The wollowing table contains measurements of voltage according to current draw:
-- 0A -> 3.31V
+#### Power
+The wall pcb provides power, rated at 3.3 Volts, but drops with increasing current draw.
+The esp32 can be powered with a voltage between 2.2V and 3.6V and supposedly draws max 0.26A (Wifi Tx).
+The following table contains measurements of voltage, respective to the current drawn at that moment.
+- 0.0A -> 3.31V
 - 0.1A -> 3.13V
 - 0.2A -> 2.93V
 - 0.3A -> 2.74V
 - 0.4A -> 2.55V
 - 0.5A -> 2.37V
-
-![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
 
 ### Hardware setup
 
