@@ -29,10 +29,9 @@ The following table contains measurements of voltage, respective to the current 
 
 ### Hardware setup
 
-- Shorting pins (1 and 2) && (1 and 3) by esp32 happens using AO3401A transistors, where esp controls the gate
-- Transistor base is connected to esp32 gpio (open/close)
-- Base is pulled down using a 10 kOhm resistor, connected from base to transistors emitter pin
-- Voltage potential between pin 1 and pin 2/3 is `3.3v`, which the transistor should be able to handle
-- pin 1 is connected to each transistors emitter
-- pin 2/3 are each connected to a transistors collector pin
+- Shorting pins (1 and 2) && (1 and 3) by esp32 happens using AO3401A or AO3400A Mosfet, where esp controls the gate
+- Mosfet Gate is connected to esp32 gpio (open/close)
+- Mosfet gate is pulled down using a 10 kOhm resistor, connected from gate to ground
+- pin 1 is connected to each Mosfet Source/Drain, depending on the diode direction of your mosfet (compare the 2 above in datasheets)
+- pin 2/3 are each connected to a Source/Drain
 - gpio will be high for a short time (e.g. 0.5s) to simulate a human button press
