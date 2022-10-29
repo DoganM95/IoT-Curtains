@@ -1,10 +1,8 @@
-### Cutain controller pcb
+### Curtain controller pcb
 
 ![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
-
-- has 24V and GND to power the pcb (step-down converter will be added here to power the esp32)  
   
-- Pinout:  
+- Pinout of screw spots:  
 
     Pin 5: Motor  
     Pin 4: Motor  
@@ -14,6 +12,9 @@
 
 - shorting pin 1 and pin 2 opens the curtains
 - shorting pin 1 and pin 3 closes the curtains
+
+- Pinout of female header pins (Wall side):
+
 
 #### Power
 The wall pcb provides power, rated at 3.3 Volts, but drops with increasing current draw.
@@ -28,7 +29,7 @@ The following table contains measurements of voltage, respective to the current 
 
 ### Hardware setup
 
-- Shorting pins (1 and 2) && (1 and 3) by esp32 happens using mmbt2222a transistors, where esp controls the gate
+- Shorting pins (1 and 2) && (1 and 3) by esp32 happens using AO3401A transistors, where esp controls the gate
 - Transistor base is connected to esp32 gpio (open/close)
 - Base is pulled down using a 10 kOhm resistor, connected from base to transistors emitter pin
 - Voltage potential between pin 1 and pin 2/3 is `3.3v`, which the transistor should be able to handle
