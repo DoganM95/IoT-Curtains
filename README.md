@@ -1,7 +1,15 @@
 ### Curtain controller pcb
 
+#### Existing wall module
+
 ![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
-  
+
+#### Retrofitting pcb design
+
+![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/routed_pcb.png)
+![schematic.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/schematic.png)
+![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/unrouted_pcb.png)
+
 - Pinout of screw spots:  
 
     Pin 5: Motor  
@@ -15,11 +23,12 @@
 
 - Pinout of female header pins (Wall side):
 
-
 #### Power
+
 The wall pcb provides power, rated at 3.3 Volts, but drops with increasing current draw.
 The esp32 can be powered with a voltage between 2.2V and 3.6V and supposedly draws max 0.26A (Wifi Tx).
 The following table contains measurements of voltage, respective to the current drawn at that moment.
+
 - 0.0A -> 3.31V
 - 0.1A -> 3.13V
 - 0.2A -> 2.93V
