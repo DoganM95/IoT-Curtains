@@ -38,7 +38,7 @@ The following table contains measurements of voltage, respective to the current 
 
 ![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
 
-#### Retrofitting pcb design
+#### Retrofitting pcb design (The thing built in this project, which the esp32 will sit on)
 
 ![schematic.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/schematic.png)
 ![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/routed_pcb.png)
