@@ -40,6 +40,6 @@ The following table contains measurements of voltage, respective to the current 
 
 #### Retrofitting pcb design
 
-![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/routed_pcb.png)
 ![schematic.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/schematic.png)
+![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/routed_pcb.png)
 ![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/unrouted_pcb.png)
