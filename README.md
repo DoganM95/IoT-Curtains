@@ -1,14 +1,4 @@
-### Curtain controller pcb
-
-#### Existing wall module
-
-![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
-
-#### Retrofitting pcb design
-
-![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/routed_pcb.png)
-![schematic.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/schematic.png)
-![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/unrouted_pcb.png)
+### Curtain controller pcb (wall module below)
 
 - Pinout of screw spots:  
 
@@ -18,9 +8,8 @@
     Pin 2: open curtains  
     Pin 1: GND  
 
-- shorting pin 1 and pin 2 opens the curtains
-- shorting pin 1 and pin 3 closes the curtains
-
+- shorting pin 1 and pin 2 opens the curtains  
+- shorting pin 1 and pin 3 closes the curtains  
 - Pinout of female header pins (Wall side):
 
 #### Power
@@ -44,3 +33,13 @@ The following table contains measurements of voltage, respective to the current 
 - pin 1 is connected to each Mosfet Source/Drain, depending on the diode direction of your mosfet (compare the 2 above in datasheets)
 - pin 2/3 are each connected to a Source/Drain
 - gpio will be high for a short time (e.g. 0.5s) to simulate a human button press
+
+#### Existing wall module
+
+![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
+
+#### Retrofitting pcb design
+
+![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/routed_pcb.png)
+![schematic.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/schematic.png)
+![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/unrouted_pcb.png)
