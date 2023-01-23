@@ -40,12 +40,12 @@ The following table contains measurements of voltage, respective to the current 
 
 #### Retrofitting pcb design (The thing built in this project, which the esp32 will sit on)
 
-![schematic.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/schematic.png?raw=true)  
+![schematic.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Hardware/preview/schematic.png)
 
-![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/routed_pcb.png?raw=true)  
+![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Hardware/preview/routed_pcb.png)
 
-![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/unrouted_pcb.png?raw=true)
+![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Hardware/preview/unrouted_pcb.png)
 
 #### Prototype image from jlcpcb order
 
-![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Server/ESP32/Hardware/preview/jlcpcb_preview.png?raw=true)
+![jlcpcb_preview.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Hardware/preview/jlcpcb_preview.png)
