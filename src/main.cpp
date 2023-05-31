@@ -37,6 +37,12 @@ ushort cycleDelayInMilliSeconds = 100;
 TaskHandle_t wifiConnectionHandlerThreadFunctionHandle;
 TaskHandle_t blynkConnectionHandlerThreadFunctionHandle;
 
+// Declarations
+void UpdateMacAddressInBlynk();
+void UpdateIpAddressInBlynk();
+void blynkConnectionHandlerThreadFunction(void* params);
+void wifiConnectionHandlerThreadFunction(void* params);
+
 // ----------------------------------------------------------------------------
 // SETUP
 // ----------------------------------------------------------------------------
