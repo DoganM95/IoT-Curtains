@@ -15,10 +15,6 @@ const unsigned int pressDuration = 500;  // time the gpio should be HIGH, before
 const unsigned short int openCurtainsPin = 26;   // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
 const unsigned short int closeCurtainsPin = 25;  // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
 
-// Connection State
-String IpAddress = "";
-String MacAddress = "";
-
 // Limits
 const int wifiHandlerThreadStackSize = 10000;
 const int blynkHandlerThreadStackSize = 10000;
@@ -38,8 +34,6 @@ TaskHandle_t wifiConnectionHandlerThreadFunctionHandle;
 TaskHandle_t blynkConnectionHandlerThreadFunctionHandle;
 
 // Declarations
-void UpdateMacAddressInBlynk();
-void UpdateIpAddressInBlynk();
 void blynkConnectionHandlerThreadFunction(void* params);
 void wifiConnectionHandlerThreadFunction(void* params);
 
@@ -61,11 +55,7 @@ void setup() {
 // MAIN LOOP
 // ----------------------------------------------------------------------------
 
-void loop() {
-  UpdateIpAddressInBlynk();
-  UpdateMacAddressInBlynk();
-  Blynk.run();
-}
+void loop() { Blynk.run(); }
 
 // ----------------------------------------------------------------------------
 // FUNCTIONS
@@ -157,19 +147,5 @@ void blynkConnectionHandlerThreadFunction(void* params) {
     }
     delay(1000);
     Serial.printf("Blynk Connection Handler Thread current stack size: %d , current Time: %d\n", blynkHandlerThreadStackSize - uxTaskGetStackHighWaterMark(NULL), xTaskGetTickCount());
-  }
-}
-
-void UpdateIpAddressInBlynk() {
-  if (IpAddress != WiFi.localIP().toString()) {
-    IpAddress = WiFi.localIP().toString();
-    Blynk.virtualWrite(V10, IpAddress);
-  }
-}
-
-void UpdateMacAddressInBlynk() {
-  if (MacAddress != WiFi.macAddress()) {
-    MacAddress = WiFi.macAddress();
-    Blynk.virtualWrite(V11, MacAddress);
   }
 }
