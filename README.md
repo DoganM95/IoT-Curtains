@@ -46,8 +46,6 @@ The following table contains measurements of voltage, respective to the current 
 
 ![routed_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Hardware/preview/routed_pcb.png)
 
-![unrouted_pcb.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Hardware/preview/unrouted_pcb.png)
-
 #### Prototype image from jlcpcb order
 
 ![jlcpcb_preview.png](https://github.com/DoganM95/IoT-Curtains/blob/master/Hardware/preview/jlcpcb_preview.png)
