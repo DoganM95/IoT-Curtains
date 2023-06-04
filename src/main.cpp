@@ -24,6 +24,9 @@ const u_short ledRedPin = 14;
 const u_short ledGreenPin = 12;
 const u_short ledBluePin = 27;  // Workaround/fix for current iteration: jmp R5, omit R6 and R7
 
+const u_short ledRedWallPin = 19;
+const u_short ledGreenWallPin = 18;
+
 // Limits
 const int wifiHandlerThreadStackSize = 10000;
 const int blynkHandlerThreadStackSize = 10000;
@@ -42,12 +45,14 @@ ushort cycleDelayInMilliSeconds = 100;
 TaskHandle_t wifiConnectionHandlerThreadFunctionHandle;
 TaskHandle_t blynkConnectionHandlerThreadFunctionHandle;
 TaskHandle_t buttonSensorThreadFunctionHandle;
+TaskHandle_t wallLedSensorThreadFunctionHandle;
 
 // Declarations
 void blynkConnectionHandlerThreadFunction(void* params);
 void wifiConnectionHandlerThreadFunction(void* params);
 void buttonSensorThread(void* params);
 void pressButton(u_short pin, u_int durationInMs);
+void wallLedSensorThread(void* params);
 
 // Led Colors
 class led {
@@ -61,13 +66,24 @@ class led {
   inline static std::array<int, 3> cyan = {0, 1, 1};
   inline static std::array<int, 3> white = {1, 1, 1};
 
+  inline static std::array<int, 3> lastColor = {0, 0, 0};
+  inline static std::array<int, 3> previousColor = {0, 0, 0};
+
   static std::future<void> setColorAsync(const std::array<int, 3>& color, u_int durationInMs) {
     return std::async(std::launch::async, [=]() {
+      led::previousColor = led::lastColor;  // Save the last color before changing it
+      led::lastColor = color;
       analogWrite(ledRedPin, color[0] * 8);
       analogWrite(ledGreenPin, color[1] * 8);
       analogWrite(ledBluePin, color[2] * 8);
-      delay(durationInMs); // becomes irrelevant when calling async, is used in sync ( .get() )
+      delay(durationInMs);
     });
+  }
+
+  static void setPreviousColor() {
+    analogWrite(ledRedPin, previousColor[0] * 8);
+    analogWrite(ledGreenPin, previousColor[1] * 8);
+    analogWrite(ledBluePin, previousColor[2] * 8);
   }
 };
 
@@ -81,6 +97,9 @@ void setup() {
   pinMode(openCurtainsPhysicalButtonPin, INPUT);
   pinMode(closeCurtainsPhysicalButtonPin, INPUT);
 
+  pinMode(ledRedWallPin, INPUT_PULLDOWN);
+  pinMode(ledGreenWallPin, INPUT_PULLDOWN);
+
   pinMode(ledRedPin, OUTPUT);
   pinMode(ledGreenPin, OUTPUT);
   pinMode(ledBluePin, OUTPUT);
@@ -92,7 +111,8 @@ void setup() {
   xTaskCreatePinnedToCore(wifiConnectionHandlerThreadFunction, "Wifi Connection Handling Thread", wifiHandlerThreadStackSize, NULL, 20, &wifiConnectionHandlerThreadFunctionHandle, 1);
   xTaskCreatePinnedToCore(blynkConnectionHandlerThreadFunction, "Blynk Connection Handling Thread", blynkHandlerThreadStackSize, NULL, 20, &blynkConnectionHandlerThreadFunctionHandle, 1);
   // TODO: reactivate in bug-fixed pcb iteration, where button pin is connected to 3v3 instead of ground...
-  // xTaskCreatePinnedToCore(buttonSensorThread, "Physical Button Sensing Thread", 10000, NULL, 20, &buttonSensorThreadFunctionHandle, 1);
+  // xTaskCreatePinnedToCore(buttonSensorThread, "Physical Button Sensing Thread", 10000, NULL, 20, &buttonSensorThreadFunctionHandle, 0);
+  xTaskCreatePinnedToCore(wallLedSensorThread, "Wall Led Sensor Thread", 10000, NULL, 20, &wallLedSensorThreadFunctionHandle, 0);
 }
 
 // MAIN LOOP
@@ -106,12 +126,40 @@ BLYNK_CONNECTED() {  // Restore hardware pins according to current UI config
 
 BLYNK_WRITE(V1) {  // Open curtains
   int pinValue = param.asInt();
-  pressButton(openCurtainsPin, pressDuration);
+  if (pinValue == 1) pressButton(openCurtainsPin, pressDuration);
 }
 
 BLYNK_WRITE(V2) {  // Close curtains
   int pinValue = param.asInt();
-  pressButton(closeCurtainsPin, pressDuration);
+  if (pinValue == 1) pressButton(closeCurtainsPin, pressDuration);
+}
+
+void wallLedSensorThread(void* param) {
+  bool isLastColorRestored = true;
+  while (true) {
+    if (digitalRead(ledRedWallPin) == HIGH) {
+      led::setColorAsync(led::red, 0).get();
+      while (digitalRead(ledRedWallPin)) {
+        // block until curtain action complete
+        delay(10);
+      }
+      isLastColorRestored = false;
+    }
+    if (digitalRead(ledRedWallPin) == LOW && isLastColorRestored == false) {
+      led::setPreviousColor();
+      isLastColorRestored = true;
+    }
+    if (digitalRead(ledGreenWallPin) == HIGH) {
+      led::setColorAsync(led::green, 0).get();
+      isLastColorRestored = false;
+    }
+    if (digitalRead(ledGreenWallPin) == LOW && isLastColorRestored == false) {
+      led::setPreviousColor();
+      isLastColorRestored = true;
+    }
+
+    delay(10);
+  }
 }
 
 void buttonSensorThread(void* params) {
@@ -170,7 +218,7 @@ void wifiConnectionHandlerThreadFunction(void* params) {
       }
     }
     delay(1000);
-    Serial.printf("Wifi Connection Handler Thread current stack size: %d , current Time: %d\n", wifiHandlerThreadStackSize - uxTaskGetStackHighWaterMark(NULL), xTaskGetTickCount());
+    // Serial.printf("Wifi Connection Handler Thread current stack size: %d , current Time: %d\n", wifiHandlerThreadStackSize - uxTaskGetStackHighWaterMark(NULL), xTaskGetTickCount());
   };
 }
 
@@ -196,6 +244,6 @@ void blynkConnectionHandlerThreadFunction(void* params) {
       }
     }
     delay(1000);
-    Serial.printf("Blynk Connection Handler Thread current stack size: %d , current Time: %d\n", blynkHandlerThreadStackSize - uxTaskGetStackHighWaterMark(NULL), xTaskGetTickCount());
+    // Serial.printf("Blynk Connection Handler Thread current stack size: %d , current Time: %d\n", blynkHandlerThreadStackSize - uxTaskGetStackHighWaterMark(NULL), xTaskGetTickCount());
   }
 }
