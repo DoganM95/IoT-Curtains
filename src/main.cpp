@@ -188,7 +188,7 @@ void greenWallLedSensorThread(void* param) {
   while (true) {
     if (digitalRead(ledGreenWallPin) == HIGH) {
       led::addColorAsync(led::green, 0).get();
-      while (digitalRead(ledGreenPin) == HIGH) {
+      while (digitalRead(ledGreenWallPin) == HIGH) {
         delay(10);
       }
       isLastColorRestored = false;
