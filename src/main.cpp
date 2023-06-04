@@ -45,14 +45,18 @@ ushort cycleDelayInMilliSeconds = 100;
 TaskHandle_t wifiConnectionHandlerThreadFunctionHandle;
 TaskHandle_t blynkConnectionHandlerThreadFunctionHandle;
 TaskHandle_t buttonSensorThreadFunctionHandle;
-TaskHandle_t wallLedSensorThreadFunctionHandle;
+TaskHandle_t redWallLedSensorThreadFunctionHandle;
+TaskHandle_t greenWallLedSensorThreadFunctionHandle;
+TaskHandle_t blueLedThreadFunctionHandle;
 
 // Declarations
 void blynkConnectionHandlerThreadFunction(void* params);
 void wifiConnectionHandlerThreadFunction(void* params);
 void buttonSensorThread(void* params);
 void pressButton(u_short pin, u_int durationInMs);
-void wallLedSensorThread(void* params);
+void redWallLedSensorThread(void* params);
+void greenWallLedSensorThread(void* params);
+void blueLedThread(void* params);
 
 // Led Colors
 class led {
@@ -77,6 +81,29 @@ class led {
       analogWrite(ledGreenPin, color[1] * 8);
       analogWrite(ledBluePin, color[2] * 8);
       delay(durationInMs);
+    });
+  }
+
+  static std::future<void> addColorAsync(const std::array<int, 3>& color, u_int durationInMs) {
+    return std::async(std::launch::async, [=]() {
+      const int ledPins[] = {ledRedPin, ledGreenPin, ledBluePin};
+      for (int i = 0; i < 3; ++i) {
+        if (color[i] == 1) {
+          analogWrite(ledPins[i], color[i] * 8);
+        }
+      }
+      delay(durationInMs);
+    });
+  }
+
+  static std::future<void> removeColorAsync(const std::array<int, 3>& color) {
+    return std::async(std::launch::async, [=]() {
+      const int ledPins[] = {ledRedPin, ledGreenPin, ledBluePin};
+      for (int i = 0; i < 3; ++i) {
+        if (color[i] == 0) {
+          analogWrite(ledPins[i], 0);
+        }
+      }
     });
   }
 
@@ -107,12 +134,15 @@ void setup() {
   led::setColorAsync(led::red, 1000).get();
   led::setColorAsync(led::green, 1000).get();
   led::setColorAsync(led::blue, 1000).get();
+  led::setColorAsync(led::black, 0).get();
 
   xTaskCreatePinnedToCore(wifiConnectionHandlerThreadFunction, "Wifi Connection Handling Thread", wifiHandlerThreadStackSize, NULL, 20, &wifiConnectionHandlerThreadFunctionHandle, 1);
   xTaskCreatePinnedToCore(blynkConnectionHandlerThreadFunction, "Blynk Connection Handling Thread", blynkHandlerThreadStackSize, NULL, 20, &blynkConnectionHandlerThreadFunctionHandle, 1);
   // TODO: reactivate in bug-fixed pcb iteration, where button pin is connected to 3v3 instead of ground...
   // xTaskCreatePinnedToCore(buttonSensorThread, "Physical Button Sensing Thread", 10000, NULL, 20, &buttonSensorThreadFunctionHandle, 0);
-  xTaskCreatePinnedToCore(wallLedSensorThread, "Wall Led Sensor Thread", 10000, NULL, 20, &wallLedSensorThreadFunctionHandle, 0);
+  xTaskCreatePinnedToCore(redWallLedSensorThread, "Red Wall Led Sensor Thread", 10000, NULL, 20, &redWallLedSensorThreadFunctionHandle, 0);
+  xTaskCreatePinnedToCore(greenWallLedSensorThread, "Green Wall Led Sensor Thread", 10000, NULL, 20, &greenWallLedSensorThreadFunctionHandle, 0);
+  xTaskCreatePinnedToCore(blueLedThread, "Blue Led Thread", 10000, NULL, 20, &blueLedThreadFunctionHandle, 0);
 }
 
 // MAIN LOOP
@@ -134,11 +164,11 @@ BLYNK_WRITE(V2) {  // Close curtains
   if (pinValue == 1) pressButton(closeCurtainsPin, pressDuration);
 }
 
-void wallLedSensorThread(void* param) {
+void redWallLedSensorThread(void* param) {
   bool isLastColorRestored = true;
   while (true) {
     if (digitalRead(ledRedWallPin) == HIGH) {
-      led::setColorAsync(led::red, 0).get();
+      led::addColorAsync(led::red, 0).get();
       while (digitalRead(ledRedWallPin)) {
         // block until curtain action complete
         delay(10);
@@ -146,18 +176,43 @@ void wallLedSensorThread(void* param) {
       isLastColorRestored = false;
     }
     if (digitalRead(ledRedWallPin) == LOW && isLastColorRestored == false) {
-      led::setPreviousColor();
+      led::removeColorAsync(led::red).get();
       isLastColorRestored = true;
     }
+    delay(10);
+  }
+}
+
+void greenWallLedSensorThread(void* param) {
+  bool isLastColorRestored = true;
+  while (true) {
     if (digitalRead(ledGreenWallPin) == HIGH) {
-      led::setColorAsync(led::green, 0).get();
+      led::addColorAsync(led::green, 0).get();
+      while (digitalRead(ledGreenPin) == HIGH) {
+        delay(10);
+      }
       isLastColorRestored = false;
     }
     if (digitalRead(ledGreenWallPin) == LOW && isLastColorRestored == false) {
-      led::setPreviousColor();
+      led::removeColorAsync(led::green).get();
       isLastColorRestored = true;
     }
+    delay(10);
+  }
+}
 
+void blueLedThread(void* param) {
+  bool isLastColorRestored = true;
+  while (true) {
+    if (Blynk.connected() && WiFi.isConnected()) {
+      led::addColorAsync(led::blue, 0).get();
+    } else {
+      while (!Blynk.connected() || !WiFi.isConnected()) {
+        led::addColorAsync(led::blue, 0).get();
+        delay(500);
+        led::removeColorAsync(led::blue).get();
+      }
+    }
     delay(10);
   }
 }
