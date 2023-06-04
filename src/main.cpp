@@ -12,6 +12,7 @@
 
 // Configurations
 const u_int pressDuration = 500;  // time the gpio should be HIGH, before it goes back to LOW
+const u_int ledBrightness = 4; // between 0 and 255, respective to 0 to 100 %
 
 // GPIO pins
 const u_short openCurtainsPin = 26;   // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
@@ -77,9 +78,9 @@ class led {
     return std::async(std::launch::async, [=]() {
       led::previousColor = led::lastColor;  // Save the last color before changing it
       led::lastColor = color;
-      analogWrite(ledRedPin, color[0] * 8);
-      analogWrite(ledGreenPin, color[1] * 8);
-      analogWrite(ledBluePin, color[2] * 8);
+      analogWrite(ledRedPin, color[0] * ledBrightness);
+      analogWrite(ledGreenPin, color[1] * ledBrightness);
+      analogWrite(ledBluePin, color[2] * ledBrightness);
       delay(durationInMs);
     });
   }
@@ -89,7 +90,7 @@ class led {
       const int ledPins[] = {ledRedPin, ledGreenPin, ledBluePin};
       for (int i = 0; i < 3; ++i) {
         if (color[i] == 1) {
-          analogWrite(ledPins[i], color[i] * 8);
+          analogWrite(ledPins[i], color[i] * ledBrightness);
         }
       }
       delay(durationInMs);
@@ -100,7 +101,7 @@ class led {
     return std::async(std::launch::async, [=]() {
       const int ledPins[] = {ledRedPin, ledGreenPin, ledBluePin};
       for (int i = 0; i < 3; ++i) {
-        if (color[i] == 0) {
+        if (color[i] == 1) {
           analogWrite(ledPins[i], 0);
         }
       }
@@ -108,9 +109,9 @@ class led {
   }
 
   static void setPreviousColor() {
-    analogWrite(ledRedPin, previousColor[0] * 8);
-    analogWrite(ledGreenPin, previousColor[1] * 8);
-    analogWrite(ledBluePin, previousColor[2] * 8);
+    analogWrite(ledRedPin, previousColor[0] * ledBrightness);
+    analogWrite(ledGreenPin, previousColor[1] * ledBrightness);
+    analogWrite(ledBluePin, previousColor[2] * ledBrightness);
   }
 };
 
