@@ -181,7 +181,6 @@ void redWallLedSensorThread(void* param) {
     if (digitalRead(ledRedWallPin) == HIGH) {
       led::addColorAsync(led::red, 0).get();
       while (digitalRead(ledRedWallPin)) {
-        // block until curtain action complete
         delay(10);
       }
       isLastColorRestored = false;
