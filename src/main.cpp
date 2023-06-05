@@ -170,7 +170,7 @@ BLYNK_WRITE(V1) {  // Open curtains
   if (pinValue == 1) pressButton(openCurtainsPin, pressDuration);
 }
 
-BLYNK_WRITE(V2) {  // Close curtains
+BLYNK_WRITE(V2) {  // Set led brightness
   int pinValue = param.asInt();
   if (pinValue == 1) pressButton(closeCurtainsPin, pressDuration);
 }
