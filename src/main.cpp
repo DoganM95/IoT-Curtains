@@ -12,7 +12,7 @@
 
 // Configurations
 const u_int pressDuration = 500;  // time the gpio should be HIGH, before it goes back to LOW
-const u_int ledBrightness = 4; // between 0 and 255, respective to 0 to 100 %
+u_int ledBrightness = 4;          // between 0 and 255, respective to 0 to 100 %
 
 // GPIO pins
 const u_short openCurtainsPin = 26;   // Put a pulldown resistor on this one (10 kOhm from gpio -> GND)
@@ -113,6 +113,11 @@ class led {
     analogWrite(ledGreenPin, previousColor[1] * ledBrightness);
     analogWrite(ledBluePin, previousColor[2] * ledBrightness);
   }
+
+  static void setBrightness(u_int brightness) {
+    ledBrightness = brightness;
+    led::setColorAsync(led::lastColor, 0).get();
+  }
 };
 
 // SETUP
@@ -153,6 +158,11 @@ void loop() { Blynk.run(); }
 
 BLYNK_CONNECTED() {  // Restore hardware pins according to current UI config
   Blynk.syncAll();
+}
+
+BLYNK_WRITE(V0) {  // Open curtains
+  int pinValue = param.asInt();
+  led::setBrightness(pinValue);
 }
 
 BLYNK_WRITE(V1) {  // Open curtains
