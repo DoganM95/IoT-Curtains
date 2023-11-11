@@ -20,12 +20,20 @@ The wall pcb provides power, rated at 3.3 Volts, but drops with increasing curre
 The esp32 can be powered with a voltage between 2.2V and 3.6V and supposedly draws max 0.26A (Wifi Tx).
 The following table contains measurements of voltage, respective to the current drawn at that moment.
 
-- 0.0A -> 3.31V
-- 0.1A -> 3.13V
-- 0.2A -> 2.93V
-- 0.3A -> 2.74V
-- 0.4A -> 2.55V
-- 0.5A -> 2.37V
+<table>
+  <tr>
+    <!-- Ensure that the 'width' attribute is set to '50%' so that each image takes up only half of the table -->
+    <td width="30%">
+- 0.0A -> 3.31V<br/>  
+- 0.1A -> 3.13V<br/>  
+- 0.2A -> 2.93V<br/>  
+- 0.3A -> 2.74V<br/>  
+- 0.4A -> 2.55V<br/>  
+- 0.5A -> 2.37V<br/>      
+    </td>
+    <td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/9c8e161c-34f9-4ac7-bb64-0f778c8fefd5" alt="USB-C PCB Bottom View"/></td>
+  </tr>
+</table>
 
 ### Hardware setup
 
