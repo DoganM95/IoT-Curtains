@@ -20,12 +20,19 @@ The wall pcb provides power, rated at 3.3 Volts, but drops with increasing curre
 The esp32 can be powered with a voltage between 2.2V and 3.6V and supposedly draws max 0.26A (Wifi Tx).
 The following table contains measurements of voltage, respective to the current drawn at that moment.
 
-- 0.0A -> 3.31V
-- 0.1A -> 3.13V
-- 0.2A -> 2.93V
-- 0.3A -> 2.74V
-- 0.4A -> 2.55V
-- 0.5A -> 2.37V
+<table>
+  <tr>
+    <td width="30%">
+- 0.0A -> 3.31V<br/>  
+- 0.1A -> 3.13V<br/>  
+- 0.2A -> 2.93V<br/>  
+- 0.3A -> 2.74V<br/>  
+- 0.4A -> 2.55V<br/>  
+- 0.5A -> 2.37V<br/>      
+    </td>
+    <td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/9c8e161c-34f9-4ac7-bb64-0f778c8fefd5" alt="USB-C PCB Bottom View"/></td>
+  </tr>
+</table>
 
 ### Hardware setup
 
@@ -37,17 +44,20 @@ The following table contains measurements of voltage, respective to the current 
 - gpio will be high for a short time (e.g. 0.5s) to simulate a human button press
 
 #### Existing wall module
-
-![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
-
-#### Retrofitting pcb design (The thing built in this project, which the esp32 will sit on)
+This is the controller board that is built in to the wall. The wires of the motors of the facade are routed trough the wall and connected to it using the screw terminals. This module stays as is.
 <table>
   <tr>
-    <td><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/eac1ac86-5815-4dbe-bf52-aa11ace5cec8" alt="schematic" width="500px" /></td>
-    <td><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/6696d9e4-c7de-4b23-a61a-070a75412d56" alt="board" width="500px" /></td>
+<td width="50%"><img src="https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png" alt="Wall module"/></td>
+    <td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/e5726afd-bb9a-4ce0-ba86-bae11b25775e" alt="Wall module labeled"/></td>
   </tr>
 </table>
 
+#### Preview of retrofitting smart module
+This is the smart-module built in this project, which attaches to the wall-module above. It replaces the simple stock pcb that was attached to the wall module by default and only provided two led's (green/red) and two buttons (open/close).
+<table>
+  <tr>
+<td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/53a401cd-9ca3-4d98-90eb-97e7cb21b43d" alt="USB-C PCB Bottom View"/></td>
+    <td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/27e2ff01-ed84-4876-893c-6a1bd83d1d68" alt="USB-C PCB Bottom View"/></td>
+  </tr>
+</table>
 
-#### Prototype image from jlcpcb order
-![jlcpcb_preview](https://github.com/DoganM95/IoT-Curtains/assets/38842553/cc97c906-715d-4e2a-9d6c-f1abacc396f8)
