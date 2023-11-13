@@ -44,6 +44,7 @@ The following table contains measurements of voltage, respective to the current 
 - gpio will be high for a short time (e.g. 0.5s) to simulate a human button press
 
 #### Existing wall module
+This is the controller board that is built in to the wall. The wires of the motors of the facade are routed trough the wall and connected to it using the screw terminals. This module stays as is.
 <table>
   <tr>
 <td width="50%"><img src="https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png" alt="Wall module"/></td>
@@ -51,16 +52,8 @@ The following table contains measurements of voltage, respective to the current 
   </tr>
 </table>
 
-#### Retrofitting pcb design (The thing built in this project, which the esp32 will sit on)
-<table>
-  <tr>
-    <td><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/eac1ac86-5815-4dbe-bf52-aa11ace5cec8" alt="schematic" width="500px" /></td>
-    <td><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/6696d9e4-c7de-4b23-a61a-070a75412d56" alt="board" width="500px" /></td>
-  </tr>
-</table>
-
-
-#### Preview
+#### Preview of retrofitting smart module
+This is the smart-module built in this project, which attaches to the wall-module above. It replaces the simple stock pcb that was attached to the wall module by default and only provided two led's (green/red) and two buttons (open/close).
 <table>
   <tr>
 <td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/53a401cd-9ca3-4d98-90eb-97e7cb21b43d" alt="USB-C PCB Bottom View"/></td>
