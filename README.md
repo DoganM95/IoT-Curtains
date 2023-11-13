@@ -22,7 +22,6 @@ The following table contains measurements of voltage, respective to the current 
 
 <table>
   <tr>
-    <!-- Ensure that the 'width' attribute is set to '50%' so that each image takes up only half of the table -->
     <td width="30%">
 - 0.0A -> 3.31V<br/>  
 - 0.1A -> 3.13V<br/>  
@@ -45,8 +44,12 @@ The following table contains measurements of voltage, respective to the current 
 - gpio will be high for a short time (e.g. 0.5s) to simulate a human button press
 
 #### Existing wall module
-
-![image](https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png)
+<table>
+  <tr>
+<td width="50%"><img src="https://user-images.githubusercontent.com/38842553/168401683-ad2862df-2277-4cbb-bfc8-14a0a4172ebe.png" alt="Wall module"/></td>
+    <td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/e5726afd-bb9a-4ce0-ba86-bae11b25775e" alt="Wall module labeled"/></td>
+  </tr>
+</table>
 
 #### Retrofitting pcb design (The thing built in this project, which the esp32 will sit on)
 <table>
@@ -57,5 +60,11 @@ The following table contains measurements of voltage, respective to the current 
 </table>
 
 
-#### Prototype image from jlcpcb order
-![jlcpcb_preview](https://github.com/DoganM95/IoT-Curtains/assets/38842553/cc97c906-715d-4e2a-9d6c-f1abacc396f8)
+#### Preview
+<table>
+  <tr>
+<td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/53a401cd-9ca3-4d98-90eb-97e7cb21b43d" alt="USB-C PCB Bottom View"/></td>
+    <td width="50%"><img src="https://github.com/DoganM95/IoT-Curtains/assets/38842553/27e2ff01-ed84-4876-893c-6a1bd83d1d68" alt="USB-C PCB Bottom View"/></td>
+  </tr>
+</table>
+
